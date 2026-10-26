@@ -1,0 +1,91 @@
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "voltie"
+version = "1.0.0"
+description = "Asynchronous Python client for the local HTTP API of Voltie EV chargers."
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "Voltie", email = "developer@voltie.eu" }]
+maintainers = [{ name = "Voltie", email = "developer@voltie.eu" }]
+requires-python = ">=3.12"
+keywords = ["voltie", "ev", "charger", "wallbox", "evse", "home-assistant", "async"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Framework :: AsyncIO",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Home Automation",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Typing :: Typed",
+]
+dependencies = ["aiohttp>=3.9.0", "yarl>=1.9.0"]
+
+[project.urls]
+Homepage = "https://voltie.eu"
+Source = "https://github.com/voltie-eu/python-voltie"
+Issues = "https://github.com/voltie-eu/python-voltie/issues"
+Changelog = "https://github.com/voltie-eu/python-voltie/blob/main/CHANGELOG.md"
+
+[dependency-groups]
+dev = [
+  "mypy==2.4.0",
+  "pytest==9.0.3",
+  "pytest-asyncio==1.4.0",
+  "pytest-cov==7.1.0",
+  "ruff==0.17.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/voltie"]
+
+[tool.hatch.build.targets.sdist]
+only-include = ["src/voltie", "tests", "CHANGELOG.md", "README.md", "LICENSE"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+addopts = "--cov=voltie --cov-report=term-missing --cov-fail-under=100"
+
+[tool.coverage.report]
+exclude_also = ["raise AssertionError"]
+
+[tool.mypy]
+strict = true
+python_version = "3.12"
+files = ["src"]
+
+[tool.ruff]
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+  "ANN401",  # parsing untyped JSON
+  "COM812",  # conflicts with the formatter
+  "D203",    # conflicts with D211
+  "CPY001",
+  "D213",    # conflicts with D212
+  "EM101",   # messages are fine inline
+  "EM102",
+  "TRY003",
+  "PLR0913", # the API has many optional parameters
+  "FBT001",
+  "FBT002",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S106", "D103", "PLR2004", "SLF001", "ANN201"]
+
+[tool.ruff.lint.isort]
+force-sort-within-sections = true
+combine-as-imports = true
+known-first-party = ["voltie"]

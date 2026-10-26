@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Problem with the Home Assistant integration
+    url: https://github.com/home-assistant/core/issues
+    about: Report problems with the Voltie Charger integration of Home Assistant in the Home Assistant core repository.
+  - name: Problem with the library
+    url: https://github.com/voltie-eu/python-voltie/issues/new?template=bug_report.yml
+    about: Report a bug in this Python library.

@@ -1,0 +1,27 @@
+name: Library bug
+description: Report a bug in the voltie Python library
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened
+      description: What you did, what you expected and what happened instead.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Library version
+    validations:
+      required: true
+  - type: input
+    id: firmware
+    attributes:
+      label: Charger software version
+      description: Shown in the Voltie app, for example 1.3.25.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or traceback
+      render: text
